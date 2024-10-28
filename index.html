@@ -1,0 +1,386 @@
+<html><head><base href="." />
+<meta charset="UTF-8">
+<title>Cadastro de Equipamentos</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #f5f5f5;
+    }
+
+    .form-container {
+        background-color: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+        color: #333;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    input[type="number"][id="valorMedio"] {
+        background-color: #f8f8f8;
+        border: 2px solid #4CAF50;
+        padding: 10px;
+        font-size: 16px;
+        color: #333;
+        transition: all 0.3s ease;
+    }
+
+    input[type="number"][id="valorMedio"]:focus {
+        border-color: #45a049;
+        box-shadow: 0 0 5px rgba(76,175,80,0.5);
+        background-color: #fff;
+    }
+
+    input[type="number"][id="valorMedio"]::placeholder {
+        color: #999;
+    }
+
+    .button-group {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .button-group button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+        margin: 0 10px;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .button-group button:hover {
+        background-color: #45a049;
+        transform: translateY(-2px);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .button-group button:active {
+        transform: translateY(0);
+    }
+
+    .button-group button svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    #resultado {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        display: none;
+    }
+
+    @media print {
+        @page {
+            size: 80mm 297mm;
+            margin: 0;
+        }
+        
+        body {
+            width: 80mm;
+            margin: 0;
+            padding: 5mm;
+        }
+
+        .form-container {
+            box-shadow: none;
+            padding: 0;
+        }
+
+        .no-print {
+            display: none;
+        }
+
+        #resultado {
+            display: block !important;
+            padding: 0;
+            font-size: 12px;
+            line-height: 1.2;
+            width: 70mm;
+        }
+
+        #resultado h3 {
+            font-size: 14px;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        #resultado p {
+            margin: 4px 0;
+            border-bottom: 1px dotted #ccc;
+            padding-bottom: 4px;
+        }
+
+        .print-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .print-footer {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Cadastro de Equipamentos</h2>
+        <form id="equipamentoForm">
+            <div class="form-group">
+                <label for="codigo">Código:</label>
+                <input type="text" id="codigo" name="codigo" required>
+            </div>
+
+            <div class="form-group">
+                <label for="local">Local:</label>
+                <input type="text" id="local" name="local" required>
+            </div>
+
+            <div class="form-group">
+                <label for="setor">Setor:</label>
+                <input type="text" id="setor" name="setor" required>
+            </div>
+
+            <div class="form-group">
+                <label for="tipoEquipamento">Tipo de Equipamento:</label>
+                <select id="tipoEquipamento" name="tipoEquipamento" required>
+                    <option value="">Selecione...</option>
+                    <option value="Desktop">Desktop</option>
+                    <option value="Notebook">Notebook</option>
+                    <option value="Servidor">Servidor</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fabricante">Fabricante:</label>
+                <input type="text" id="fabricante" name="fabricante" required>
+            </div>
+
+            <h3>Propriedades do Equipamento</h3>
+
+            <div class="form-group">
+                <label for="memoriaRam">Memória RAM (GB):</label>
+                <input type="number" id="memoriaRam" name="memoriaRam" required>
+            </div>
+
+            <div class="form-group">
+                <label for="hd">HD (GB):</label>
+                <input type="number" id="hd" name="hd" required>
+            </div>
+
+            <div class="form-group">
+                <label for="processador">Processador:</label>
+                <input type="text" id="processador" name="processador" required>
+            </div>
+
+            <div class="form-group">
+                <label for="ssd">Tem SSD?</label>
+                <select id="ssd" name="ssd" required>
+                    <option value="Sim">Sim</option>
+                    <option value="Não">Não</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="sistemaOperacional">Sistema Operacional:</label>
+                <input type="text" id="sistemaOperacional" name="sistemaOperacional" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pib">PIB:</label>
+                <input type="text" id="pib" name="pib" required>
+            </div>
+
+            <div class="form-group">
+                <label for="notaFiscal">Número da Nota Fiscal:</label>
+                <input type="text" id="notaFiscal" name="notaFiscal" required>
+            </div>
+
+            <div class="form-group">
+                <label for="valorMedio">Valor Médio (R$):</label>
+                <input type="number" 
+                       id="valorMedio" 
+                       name="valorMedio" 
+                       step="0.01" 
+                       min="0"
+                       placeholder="Digite o valor médio"
+                       required>
+            </div>
+
+            <div class="form-group">
+                <label for="nomeHost">Nome do Host:</label>
+                <input type="text" id="nomeHost" name="nomeHost" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nomeUsuario">Nome do Usuário:</label>
+                <input type="text" id="nomeUsuario" name="nomeUsuario" required>
+            </div>
+
+            <div class="button-group no-print">
+                <button type="submit">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+                        <polyline points="17 21 17 13 7 13 7 21"/>
+                        <polyline points="7 3 7 8 15 8"/>
+                    </svg>
+                    Salvar
+                </button>
+                <button type="button" onclick="imprimirFormulario()">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M6 9V2h12v7"/>
+                        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                        <rect x="6" y="14" width="12" height="8"/>
+                    </svg>
+                    Imprimir
+                </button>
+            </div>
+        </form>
+
+        <div id="resultado"></div>
+    </div>
+
+    <script>
+        document.getElementById('equipamentoForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            let resultado = '<h3>Dados do Equipamento</h3>';
+            
+            for (let pair of formData.entries()) {
+                let value = pair[1];
+                if (pair[0] === 'valorMedio') {
+                    value = formatCurrency(value);
+                }
+                resultado += `<p><strong>${formatarLabel(pair[0])}:</strong> ${value}</p>`;
+            }
+            
+            document.getElementById('resultado').innerHTML = resultado;
+            document.getElementById('resultado').style.display = 'block';
+        });
+
+        function formatarLabel(label) {
+            const labels = {
+                'codigo': 'Código',
+                'local': 'Local',
+                'setor': 'Setor',
+                'tipoEquipamento': 'Tipo de Equipamento',
+                'fabricante': 'Fabricante',
+                'memoriaRam': 'Memória RAM',
+                'hd': 'HD',
+                'processador': 'Processador',
+                'ssd': 'Tem SSD',
+                'sistemaOperacional': 'Sistema Operacional',
+                'pib': 'PIB',
+                'notaFiscal': 'Número da Nota Fiscal',
+                'valorMedio': 'Valor Médio',
+                'nomeHost': 'Nome do Host',
+                'nomeUsuario': 'Nome do Usuário'
+            };
+            return labels[label] || label;
+        }
+
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        }
+
+        document.getElementById('valorMedio').addEventListener('input', function(e) {
+            let value = parseFloat(this.value);
+            if (value < 0) {
+                this.value = 0;
+            }
+        });
+
+        function imprimirFormulario() {
+            if (document.getElementById('resultado').innerHTML.trim() === '') {
+                alert('Por favor, preencha e salve o formulário antes de imprimir.');
+                return;
+            }
+
+            const dataHora = new Date().toLocaleString('pt-BR');
+            const resultadoElement = document.getElementById('resultado');
+            const conteudoAtual = resultadoElement.innerHTML;
+            
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <style>
+                            @page {
+                                size: 80mm 297mm;
+                                margin: 0;
+                            }
+                            body {
+                                width: 80mm;
+                                padding: 5mm;
+                                font-family: Arial, sans-serif;
+                                font-size: 12px;
+                                line-height: 1.2;
+                            }
+                            h3 { font-size: 14px; margin: 5px 0; }
+                            p { margin: 4px 0; }
+                            .print-header { text-align: center; margin-bottom: 10px; }
+                            .print-footer { margin-top: 10px; text-align: center; font-size: 10px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="print-header">
+                            <h2>Cadastro de Equipamentos</h2>
+                            <small>Data/Hora: ${dataHora}</small>
+                        </div>
+                        ${conteudoAtual}
+                        <div class="print-footer">
+                            --------------------------------
+                            <br>Documento gerado automaticamente
+                        </div>
+                    </body>
+                </html>
+            `);
+            
+            printWindow.document.close();
+            printWindow.focus();
+            
+            setTimeout(() => {
+                printWindow.print();
+                printWindow.close();
+            }, 250);
+        }
+    </script>
+</body>
+</html>
